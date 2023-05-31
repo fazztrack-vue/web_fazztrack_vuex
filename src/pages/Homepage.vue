@@ -114,9 +114,7 @@
     methods:{
       async fetchData() {
         this.isReadyData = false
-        const response = await axios.get('https://fazz-track-sample-api.vercel.app/minicamp', config)
-        console.log(response);
-        
+        const response = await axios.get('https://fazz-track-sample-api.vercel.app/minicamp', config)    
         this.dataMinicamps = response.data.data
         this.isReadyData = true
       },
