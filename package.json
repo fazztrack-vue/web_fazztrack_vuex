@@ -1,5 +1,5 @@
 {
-  "name": "web_fazztrack_vuex",
+  "name": "fazz-course",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,12 +10,19 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "vue": "^3.2.47"
+    "daisyui": "^2.51.6",
+    "sweetalert2": "^11.7.8",
+    "vue": "^3.2.47",
+    "vue-router": "^4.2.2",
+    "vue-sweetalert2": "^5.0.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
-    "vite": "^4.3.9",
+    "vite": "^4.3.2",
     "vue-tsc": "^1.4.2"
   }
 }
