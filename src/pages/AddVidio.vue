@@ -71,12 +71,9 @@
     import BtnPrimary from "../components/atoms/BtnPrimary.vue"
     import BtnGoogle from '../components/atoms/BtnGoogle.vue';
     import LogoFazz from '../components/atoms/LogoFazz.vue';
-    import axios from "axios"
     import Navbar from '../components/organisms/Navbar.vue';
     import Footer from '../components/organisms/Footer.vue';
-
-    const token = localStorage.getItem('token')
-
+    import {mapActions} from "vuex"
 
     interface Data {
         form: IForm
@@ -113,8 +110,10 @@
             Footer
         },
         methods: {
+            ...mapActions({
+                postVidio:'vidio/postVidio'
+            }),
             hnaldeInput(data : any) {
-
                 if (data.name === 'title') {
                     this.form.title = data.value
                 } else if (data.name === 'description'){
@@ -128,21 +127,12 @@
                 }
                 else {
                     this.form.price = data.value
-                }
-                console.log(this.form);
-                
+                }                
             },
             handlePostVidio(){
-               axios.post(`https://fazz-track-sample-api.vercel.app/video`, this.form, {
-                headers:{
-                    Authorization:token
-                }
-               })
-               .then((_res)=>{
-                console.log(_res);
-                this.$router.push('/online-course')
-               })
-            
+            this.postVidio(this.form).then((_res:any)=>{
+                this.$router.push('/online-course') 
+            })
             }
         }
     })

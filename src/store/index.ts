@@ -1,10 +1,14 @@
 import { createStore } from "vuex"
 
 import minicampModule from './modules/minicamp/index'
+import vidioModul from './modules/vidio'
+import auth from './modules/auth'
 
 const store = createStore({
   modules: {
-    minicamp : minicampModule
+    vidio: vidioModul,
+    minicamp : minicampModule,
+    auth: auth
   }
 })
 
