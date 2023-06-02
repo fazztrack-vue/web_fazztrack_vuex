@@ -71,14 +71,14 @@
                     @on-change="handleInput"/>  
                 <Input
                     type="text"
-                    :default-value="dataMinicamp.isWork.toString()"
+                    :default-value="dataMinicamp.isWork"
                     label="Is Work"
                     name="is-work"
                     placeholder="Masukan false or true"
                     @on-change="handleInput"/>
                 <Input
                     type="number"
-                    :default-value="dataMinicamp.price.toString()"
+                    :default-value="dataMinicamp.price"
                     label="Price"
                     name="price"
                     placeholder="Masukan price"
@@ -96,34 +96,14 @@
 </template>
 
 <script lang="ts">
-  import axios from 'axios';
   import Input from '../atoms/Input.vue';
   import BtnPrimary from '../atoms/BtnPrimary.vue';
+  import { mapGetters, mapActions } from 'vuex';
+  import IDataMinicamp from '../../interfaces/IMinicamp';
   
-  const token = localStorage.getItem('token')
-  const config = {
-    headers: { Authorization: token }
-  };
-
   interface Data {
     isReady : boolean
     dataMinicamp: IDataMinicamp
-  }
-
-  interface IDataMinicamp {
-    id: number
-    created_at: string
-    title: string
-    description: string
-    trainerName: string
-    trainerTitle: string
-    trainerPicture: string
-    batch: string,
-    location: string,
-    startDate: string,
-    endDate: string,
-    isWork: boolean,
-    price: number
   }
 
   export default {
@@ -156,6 +136,11 @@
       components :{
         Input,
         BtnPrimary,
+      },
+      computed: {
+        ...mapGetters({
+          detailMinicamp : "minicamp/getDetail"
+        }),
       },
       methods:{
         handlecConfirm(val : string){
@@ -221,15 +206,18 @@
           this.$emit('on-confirm', this.dataMinicamp)
         },
         async getDetail(id :number){
-          const response = await axios.get(`https://fazz-track-sample-api.vercel.app/minicamp/${id}`, config)
-          this.dataMinicamp = response.data.data
+          await this.getDetailMinicamp(id)
+          this.dataMinicamp = this.detailMinicamp.data.data
           this.isReady = true
-        }
+        },
+        ...mapActions({
+          getDetailMinicamp : "minicamp/getDetailMinicamp"
+        })
       },
       mounted(){
         this.getDetail(this.id)
       }
-    }
+  }
   
 </script>
 <style lang="">

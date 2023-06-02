@@ -35,14 +35,12 @@
   </section>
 </template>
 <script lang="ts">
-  import axios from 'axios'
   import Modal from '../../components/molecules/EditMinicamp.vue'
   import Swal from 'sweetalert2'
+  import { mapActions } from 'vuex'
+  import IDataMinicamp from '../../interfaces/IMinicamp'
   
   const token = localStorage.getItem('token')
-  const config = {
-    headers: { Authorization: token }
-  };
 
   export default {
     components:{
@@ -63,28 +61,35 @@
       },
     },
     methods: {
+      ...mapActions({
+        deleteAction : "minicamp/deleteDataMinicamp",
+        editAction : "minicamp/updateDataMinicamp"
+      }),
       async deleteCourse(id : number){
-          const response = await axios.delete(`https://fazz-track-sample-api.vercel.app/minicamp/${id}`, config)
-          if(response.status === 200){
-            window.location.reload()
-          }else{
-            alert('failed internal server error')
-          }
+          this.deleteAction(id).then((_resolve : any) => {
+            Swal.fire('Delete Success!', '', 'success')
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000);
+          }).catch((error : any) => {
+            alert(error.message)
+          }) 
       },
       handleModal(id : number){
         this.id = id
         this.isModal = !this.isModal
       },
-      async editCourse(data : any) {
-        const response = await axios.put(`https://fazz-track-sample-api.vercel.app/minicamp/${data.id}`,data, config)
-        if(response.status === 200){
+      editCourse(data : IDataMinicamp) {
+        this.editAction(data).then((_res : any)=>{
           Swal.fire('Edit Success!', '', 'success')
           setTimeout(() => {
             window.location.reload()
           }, 1500);
-        }
+        }).catch((err : any) => {
+          alert(err.message)
+        })
       },
-      handleConfirm(val : any){
+      handleConfirm(val : string){
         if(val === 'cancel'){
           this.handleModal(0)
         }else{
@@ -104,7 +109,6 @@
         }).then((result) => {
           if (result.isConfirmed) {
             this.deleteCourse(id)
-            Swal.fire('Delete Success!', '', 'success')
           } else {
             Swal.fire('Delete Failed', '', 'info')
           }
