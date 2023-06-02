@@ -1,10 +1,12 @@
 import { createStore } from "vuex"
 
 import minicampModule from './modules/minicamp/index'
+import userModule from "./modules/user"
 
 const store = createStore({
   modules: {
-    minicamp : minicampModule
+    minicamp : minicampModule,
+    user: userModule
   }
 })
 

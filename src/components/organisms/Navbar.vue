@@ -29,7 +29,7 @@
                         <a rel="noopener noreferrer" class="flex items-center font-bold whitespace-nowrap py-[4px]">Kelas Persiapan Bootcamp Fullstack Web </a>
                         <a rel="noopener noreferrer" class="flex items-center font-bold whitespace-nowrap py-[4px]">Quality Assurance Manual </a>
                         <a rel="noopener noreferrer" class="flex items-center font-bold whitespace-nowrap py-[4px]">UX Writer </a>
-                        <a rel="noopener noreferrer" class="flex items-center font-bold whitespace-nowrap py-[4px]">Lihat Semua 
+                        <a @click="moveRoute('/')" rel="noopener noreferrer" class="flex items-center font-bold whitespace-nowrap py-[4px]">Lihat Semua 
                           <svg data-v-cf1ec82f="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="icon ml-[8px]" width="16px" height="16px" viewBox="0 0 24 24"><path fill="currentColor" d="M4 11v2h12l-5.5 5.5l1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5L16 11H4Z"></path></svg>
                         </a>
                       </section>
@@ -138,15 +138,14 @@
 </template>
 
 <script lang="ts">
-  import axios from 'axios';
+  import { mapGetters, mapActions } from 'vuex';
   import Logo from '../atoms/LogoFazz.vue';
   import ArrowUp from '../atoms/ArrowUp.vue';
   import ArrowDown from '../atoms/ArrowDown.vue';
+  import IUser from '../../interfaces/IUser';
 
   const token = localStorage.getItem('token')
-  const config = {
-    headers: { Authorization: token }
-  };
+
   interface Data {
       isOpenNav1 : boolean
       isOpenNav2 : boolean
@@ -157,21 +156,12 @@
       nameUser : string
   }
 
-  interface IUser {
-        id: number
-        created_at: string
-        email: string
-        password: string
-        iat: number
-  }
-
   export default {
     components:{
         Logo,
         ArrowDown,
         ArrowUp
     },
-    
     data() : Data{
         return {
           isOpenNav1 : false,
@@ -190,11 +180,17 @@
         }
       },
     computed:{
+      ...mapGetters({
+        dataProfile : "user/getDetail"
+      }),
         setIslogin(){
           this.isLogin = !this.isLogin
         }
       },
     methods:{
+      ...mapActions({
+        fetchDataProfile : "user/getDetailUser"
+      }),
         closeNav(){
           this.isOpenNav1 = false
           this.isOpenNav2 = false
@@ -233,18 +229,18 @@
         moveRoute(path : string){
           this.$router.push(path)
         },
-        async getDataUser(){
-          const response = await axios.get('https://fazz-track-sample-api.vercel.app/profile',config)
-          if(response.status === 200){
-            this.dataUser = response.data.data
+        async getDataUser(token : string){
+          try{
+            await this.fetchDataProfile(token)
+            this.dataUser = this.dataProfile.data
             this.nameUser = this.dataUser.email.split('@')[0]
-          }else{
-            console.log('error navbar')
+          }catch(err){
+            alert(this.dataProfile.isMessage)
           }
         }
       },
     mounted(){
-      this.getDataUser()
+      this.getDataUser(token)
     }
   }
 </script>
