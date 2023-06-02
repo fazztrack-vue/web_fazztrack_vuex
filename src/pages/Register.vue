@@ -74,7 +74,7 @@
     import BtnGoogle from '../components/atoms/BtnGoogle.vue';
     import Swal from 'sweetalert2'
     import LogoFazz from '../components/atoms/LogoFazz.vue';
-    import axios from "axios"
+    import {mapActions, mapGetters} from 'vuex'
 
     interface Data {
         passwordConfirm : string
@@ -103,6 +103,11 @@
             LogoFazz
         },
         methods: {
+            ...mapActions({
+                registerAction:'auth/register'
+            }),
+            // ...mapActions({
+            // }),
             handleInput(data : any) {
                 if (data.name === "email") {
                     this.form.email = data.value
@@ -111,6 +116,8 @@
                 } else{
                     this.passwordConfirm = data.value
                 }
+                console.log(this.passwordConfirm);
+                
             },
             handleRegister(){
                 if(this.form.email === '' || this.form.password === ''){
@@ -118,13 +125,13 @@
                 }else if(this.passwordConfirm !== this.form.password){
                     return Swal.fire('Password Not Match', '', 'warning')
                 }else{
-                    axios.post(`https://fazz-track-sample-api.vercel.app/register`, this.form)
-                    .then((_res)=>{
+                    this.registerAction(this.form)
+                    .then((_res:any)=>{
                         Swal.fire('Register is Success,', 'dimohon untuk login ulang', 'success')
                         setTimeout(() => {
                             return this.$router.push('/login')
                         }, 2000);
-                    }).catch((_err) => {
+                    }).catch((_err:any) => {
                         Swal.fire('Internal Server Error', '', 'error')
                         setTimeout(() => {
                             return window.location.reload()

@@ -56,7 +56,7 @@
     import LogoFazz from '../components/atoms/LogoFazz.vue';
     // import ToastSuccess from '../components/atoms/ToastSuccess.vue';
     import Swal from 'sweetalert2';
-    import axios from 'axios';
+    import {mapActions} from 'vuex'
 
     interface Data {
         form: IForm
@@ -87,6 +87,9 @@
             // ToastSuccess
         },
         methods: {
+            ...mapActions({
+                loginAction:'auth/login'
+            }),
             handleInput(data : any) {
                 if (data.name === "email") {
                     this.form.email = data.value
@@ -98,14 +101,14 @@
                 if(this.form.email === '' || this.form.password === ''){
                     return Swal.fire('Please fill all the input', '', 'warning')
                 }else{
-                    axios.post(`https://fazz-track-sample-api.vercel.app/login`, this.form)
-                    .then((_res)=>{
+                   this.loginAction(this.form)
+                    .then((_res:any)=>{
                         localStorage.setItem('token', _res.data.data.token)
                         Swal.fire('Success Sign In', '', 'success')
                         setTimeout(() => {
                             window.location.href = '/'
                         }, 2000);
-                    }).catch((_err) => {
+                    }).catch((_err:any) => {
                         Swal.fire('Email or Password Wrong', '', 'error')
                         setTimeout(() => {
                             return window.location.reload()
