@@ -1,5 +1,5 @@
 <template>
-    <div class="card max-w-[250px] bg-base-100 shadow-md rounded-md flex justify-center mb-5 hover:scale-[1.03] duration-100">
+    <div class="card max-w-[250px] w-full bg-base-100 shadow-md rounded-md flex justify-center mb-5 hover:scale-[1.03] duration-100">
         <figure>
             <img
                 :src="cover"

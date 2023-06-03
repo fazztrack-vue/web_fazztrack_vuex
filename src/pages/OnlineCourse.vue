@@ -211,32 +211,36 @@ export default defineComponent({
       deleteVidio: "vidio/deleteVidio",
     }),
     moveCorousel() {
+      console.log(this.count);
+      console.log(this.slide);
       if (this.count < 4) {
         this.count = 4;
-      } else if (this.count < this.card.length) {
-        this.count += 1;
-        this.slide = `#slide${this.count}`;
+      }else if (this.count == this.listVidio.data.data.length ) {
+        this.count = this.listVidio.data.data.length
+      }else {
+          this.count += 1;
+          this.slide = `#slide${this.count}`;
       }
     },
     backCarousel() {
       if (this.count > 1) {
-        if (this.count > this.card.length - 4) {
+        if (this.count > this.listVidio.data.data.length - 4) {
           this.count -= 4;
           this.slide = `#slide${this.count}`;
         } else {
           this.count--;
           this.slide = `#slide${this.count}`;
         }
-      }
+      }   
+      console.log(this.count);
+      
     },
     moveToAddVidio() {
       this.$router.push("/add-vidio");
     },
-    showModal(param:number) {
-      this.id = param
+    showModal(param: number) {
+      this.id = param;
       this.modalDeleteStatus = !this.modalDeleteStatus;
-      console.log("testt");
-      
     },
     handleDelete(id: number) {
       Swal.fire({
@@ -260,7 +264,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.fetchData();
+    this.fetchData()
   },
 });
 </script>
