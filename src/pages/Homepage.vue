@@ -13,7 +13,7 @@
     <NavbarSection @on-selected="filterMinicamp" :options="options" />
     <section>
       <Modal @on-confirm="handleConfirm" v-if="isModal" />
-      <div v-if="isLogin === token" class="container-class pt-10 mx-auto text-right">
+      <div v-if="isLogin !== false" class="container-class pt-10 mx-auto text-right">
         <button @click="handleModal" class="border-2 rounded-md py-2 px-3 bg-primary-orange text-white tracking-wide border-primary-orange"><i class="fa-solid fa-circle-plus fa-2xl"></i></button>
       </div>
       <main class="container-class py-10 mx-auto grid grid-cols-3 gap-8 z-10 items-stretch">
@@ -28,7 +28,7 @@
   <Contact />
 </template>
 <script lang="ts">
-  import axios from 'axios';
+  import { mapGetters, mapActions } from 'vuex';
 
   import ToastSuccess from '../components/atoms/ToastSuccess.vue';
   import LogoText from '../components/atoms/LogoText.vue';
@@ -39,19 +39,15 @@
   import NavbarSection from '../components/molecules/NavbarSection.vue';
   import CardMinicamp from '../components/molecules/CardMinicamp.vue';
   import SkeletonMinicamp from '../components/atoms/SkeletonMinicamp.vue'
+  import IDataMinicamp from '../interfaces/IMinicamp';
  
-  const token = localStorage.getItem('token') 
-  const tempToken = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImNyZWF0ZWRfYXQiOiIyMDIzLTA1LTI2VDA1OjU4OjI0LjI0ODI1KzAwOjAwIiwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGRaeXJuYUQyS0lrbm5zZ2p4RnRkb082a2p5SHYzSXo1ZmNFMjZKM3huNC9yOVJ5S1prTkRXIiwiaWF0IjoxNjg1MTA0MzY2fQ.s8cgoCIfngy75U-VzF-SIP52u04qZ33b7myhpcwyUHI'
-  const config = {
-    headers: { Authorization: token || tempToken }
-  };
+  const token = localStorage.getItem('token')
 
   interface Data {
     options : IOptions[]
     dataMinicamps : IDataMinicamp[]
     isModal : boolean
-    isLogin : string
-    token : string | boolean
+    isLogin : string | boolean
     isReadyData: boolean
     isAlert: boolean
   }
@@ -60,22 +56,6 @@
     id : number
     value : string
     active : boolean
-  }
-
-  interface IDataMinicamp {
-    id: number
-    created_at: string
-    title: string
-    description: string
-    trainerName: string
-    trainerTitle: string
-    trainerPicture: string
-    batch: number,
-    location: string,
-    startDate: string,
-    endDate: string,
-    isWork: boolean,
-    price: number
   }
 
   export default {
@@ -94,8 +74,7 @@
         ],
         dataMinicamps : [] as IDataMinicamp[],
         isModal : false,
-        isLogin : token || tempToken,
-        token : token || false,
+        isLogin : token || false,
         isReadyData: false,
         isAlert: false
       }
@@ -114,20 +93,19 @@
     methods:{
       async fetchData() {
         this.isReadyData = false
-        const response = await axios.get('https://fazz-track-sample-api.vercel.app/minicamp', config)    
-        this.dataMinicamps = response.data.data
+        await this.fetchDataMinicamp()
+        this.dataMinicamps = this.listMinicamp.data
         this.isReadyData = true
       },
-      async insertData(data : any) {
-        const response = await axios.post('https://fazz-track-sample-api.vercel.app/minicamp',data, config)
-        if(response.status === 200){
+      insertData(data : IDataMinicamp) {
+        this.insertDataMinicamp(data).then((_res : any) => {
           this.isAlert = true
           setTimeout(() => {
             window.location.reload()
           }, 2000);
-        }else{
-          alert('error insert')
-        }
+        }).catch((error : any) => {
+          alert(error.message)
+        })
       },
       handleModal(){
         this.isModal = !this.isModal
@@ -142,20 +120,27 @@
       },
       async filterMinicamp(data : any){
         if(data.value === 'Disalurkan'){
-          await this.fetchData()
-          const dataFilter = this.dataMinicamps.filter(val => val.isWork === true)
-          this.dataMinicamps = dataFilter
+          this.dataMinicamps = this.listDisalurkan
         }else if(data.value === 'Tidak Disalurkan'){
-          await this.fetchData()
-          const dataFilter = this.dataMinicamps.filter(val => val.isWork === false)
-          this.dataMinicamps = dataFilter  
+          this.dataMinicamps = this.listTidakDisalurkan
         }else{
-          await this.fetchData()
+          this.dataMinicamps = this.listMinicamp.data
         }
-      }
+      },
+      ...mapActions({
+        fetchDataMinicamp : "minicamp/getListMinicamp",
+        insertDataMinicamp : "minicamp/insertDataMinicamp"
+      })
     },
     mounted(){
       this.fetchData()
+    },
+    computed:{
+      ...mapGetters({
+        listMinicamp : "minicamp/getList",
+        listDisalurkan : "minicamp/getListDisalurkan",
+        listTidakDisalurkan : "minicamp/getListTidakDisalurkan",
+      })
     }
   }
 </script>
