@@ -5,6 +5,8 @@ import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import OnlineCourse from '../pages/OnlineCourse.vue'
 import AddVidio from '../pages/AddVidio.vue'
+import HireOurGraduate from '../pages/HireOurGraduate.vue'
+import AboutFazztrack from '../pages/AboutFazztrack.vue'
 
 const routes : Array<RouteRecordRaw> = [
   {
@@ -31,6 +33,16 @@ const routes : Array<RouteRecordRaw> = [
     path: '/add-vidio',
     component: AddVidio, 
     name: 'add-vidio'
+  },
+  {
+    path: '/hire',
+    component: HireOurGraduate,
+    name: 'hire'
+  },
+  {
+    path: '/about',
+    component: AboutFazztrack,
+    name: 'about'
   },
 
 ]
