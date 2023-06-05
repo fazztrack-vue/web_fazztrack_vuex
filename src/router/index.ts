@@ -10,7 +10,7 @@ import Portofolio from '../pages/Portofolio.vue'
 import HireOurGraduate from '../pages/HireOurGraduate.vue'
 import AboutFazztrack from '../pages/AboutFazztrack.vue'
 
-const privateRoute = (_to: RouteLocationNormalized, _from : RouteLocationNormalized, next : NavigationGuardNext) => {
+const authenticated = (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const token  =localStorage.getItem('token')
   if(token){
     next()
@@ -39,24 +39,26 @@ const routes : Array<RouteRecordRaw> = [
   {
     path: '/online-course',
     component: OnlineCourse, 
-    name: 'online-course'
+    name: 'online-course',
+    beforeEnter: [authenticated]
   },
   {
     path: '/add-vidio',
     component: AddVidio, 
-    name: 'add-vidio'
+    name: 'add-vidio',
+    beforeEnter: [authenticated]
   },
   {
     path: '/profile/about',
     component: Profile, 
     name: 'profile-about',
-    beforeEnter : [privateRoute]
+    beforeEnter: [authenticated]
   },
   {
     path: '/profile/portofolio',
     component: Portofolio, 
     name: 'profile-portofolio',
-    beforeEnter : [privateRoute]
+    beforeEnter: [authenticated]
   },
   {
     path: '/hire',

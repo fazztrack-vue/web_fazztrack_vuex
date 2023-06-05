@@ -1,36 +1,36 @@
 import axios from 'axios'
 import { IVidioState } from './interface';
+import { Context } from "../../../interfaces/IContext"
 
 
 const token = localStorage.getItem('token')
-const tempToken =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImNyZWF0ZWRfYXQiOiIyMD" +
-    "IzLTA1LTI2VDA1OjU4OjI0LjI0ODI1KzAwOjAwIiwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsInBh" +
-    "c3N3b3JkIjoiJDJiJDEwJGRaeXJuYUQyS0lrbm5zZ2p4RnRkb082a2p5SHYzSXo1ZmNFMjZKM3huNC" +
-    "9yOVJ5S1prTkRXIiwiaWF0IjoxNjg1NDI2Mzc5fQ.sETJEdNnlF7RuucM3aszO7VE_SsSBkOuY8wfU" +
-    "VLp3qU";
 
 const actions = {
-    async getListVidios(contex: any) {
+    async getListVidios(contex: Context) {
         contex.commit('GET_LIST_VIDIOS_PENDING')
-        try {
-            const response = await axios.get(`https://fazz-track-sample-api.vercel.app/video`, {
+        return new Promise((resolve, reject) => {
+            axios.get(`https://fazz-track-sample-api.vercel.app/video`, {
                 headers: {
-                    Authorization: token ? token : tempToken
+                    Authorization: token
+                }
+            }).then((res) => {
+                resolve(res)
+                const payload = {
+                    data: res.data
+                }
+                contex.commit('GET_LIST_VIDIOS_FULFILLED', payload)
+            }).catch((err: unknown) => {
+                if (err instanceof Error) {
+                    reject(err)
+                    const payload = {
+                        message: err.message
+                    }
+                    contex.commit('GET_LIST_VIDIOS_REJECTED', payload)
                 }
             })
-            const payload = {
-                data: response.data
-            }
-            contex.commit('GET_LIST_VIDIOS_FULFILLED', payload)
-        } catch (error: any) {
-            const payload = {
-                message: error.message
-            }
-            contex.commit('GET_LIST_VIDIOS_REJECTED', payload)
-        }
+        })
     },
-    async getVidioDetail(contex: any, id: number) {
+    async getVidioDetail(contex: Context, id: number) {
         contex.commit('GET_DETAIL_VIDIO_PENDING')
         return new Promise(async (resolve, reject) => {
             axios
@@ -45,18 +45,19 @@ const actions = {
                         data: res.data
                     }
                     contex.commit('GET_DETAIL_VIDIO_FULFILLED', payload)
-
                 })
-                .catch((err) => {
-                    reject(err.message)
-                    const payload = {
-                        message: err.message
+                .catch((err: unknown) => {
+                    if (err instanceof Error) {
+                        reject(err.message)
+                        const payload = {
+                            message: err.message
+                        }
+                        contex.commit('GET_DETAIL_VIDIO_REJECTED', payload)
                     }
-                    contex.commit('GET_DETAIL_VIDIO_REJECTED', payload)
                 })
         })
     },
-    async editVidio(_contex: any, data: { id: number, body: IVidioState }) {
+    async editVidio(_contex: Context, data: { id: number, body: IVidioState }) {
         console.log("data", data.id);
         return new Promise(async (resolve, reject) => {
             axios
@@ -76,7 +77,7 @@ const actions = {
                 })
         })
     },
-    async postVidio(_contex: any, body: IVidioState) {
+    async postVidio(_contex: Context, body: IVidioState) {
         return new Promise(async (resolve, reject) => {
             axios
                 .post(`https://fazz-track-sample-api.vercel.app/video`, body, {
@@ -95,7 +96,7 @@ const actions = {
                 })
         })
     },
-    async deleteVidio(_contex: any, id: number) {
+    async deleteVidio(_contex: Context, id: number) {
 
         return new Promise(async (resolve, reject) => {
             axios
