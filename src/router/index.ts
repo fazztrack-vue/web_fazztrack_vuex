@@ -7,6 +7,9 @@ import OnlineCourse from '../pages/OnlineCourse.vue'
 import AddVidio from '../pages/AddVidio.vue'
 import Profile from '../pages/Profile.vue'
 import Portofolio from '../pages/Portofolio.vue'
+import HireOurGraduate from '../pages/HireOurGraduate.vue'
+import AboutFazztrack from '../pages/AboutFazztrack.vue'
+
 
 const routes : Array<RouteRecordRaw> = [
   {
@@ -43,6 +46,15 @@ const routes : Array<RouteRecordRaw> = [
     path: '/profile/portofolio',
     component: Portofolio, 
     name: 'profile-portofolio'
+  },
+    path: '/hire',
+    component: HireOurGraduate,
+    name: 'hire'
+  },
+  {
+    path: '/about',
+    component: AboutFazztrack,
+    name: 'about'
   },
 ]
 
