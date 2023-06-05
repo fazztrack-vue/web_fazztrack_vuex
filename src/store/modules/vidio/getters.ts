@@ -1,4 +1,4 @@
-import IVidioState from "./interface"
+import { IVidioState } from './interface';
 
 const getters = {
     getList(state: IVidioState) {

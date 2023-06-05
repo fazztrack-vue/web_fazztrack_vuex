@@ -1,14 +1,8 @@
-import { IVidio } from "../../../interfaces/IVidio";
-export interface IVidioState {
-    list: {
-        isLoading: boolean,
-        data: IVidio[],
-        isError: boolean,
-        errMessage: string
-    },
+import { IAuth } from "../../../interfaces/IAuth"
+export interface IAuthState {
     detail: {
         isLoading: boolean,
-        data: IVidio | null,
+        data: IAuth | null,
         isError: boolean,
         errMessage: string
     }
