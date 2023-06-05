@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <button @click="onClick" :class="'btn w-full mt-2 rounded-md hover:bg-[#ef6807] bg-[#ef6807] border-none'+' '+size">{{title}}</button>
+        <button @click="onClick" :class="'btn w-full rounded-md hover:bg-[#ef6807] bg-[#ef6807] border-none'+' '+size+' '+style"><p class="capitalize tracking-wide">{{title}}</p></button>
     </div>
 </template>
 <script lang="ts">
@@ -14,6 +14,11 @@ export default defineComponent({
             required: true
         },
         size:{
+            type:String,
+            required:false,
+            default:""
+        },
+        style:{
             type:String,
             required:false,
             default:""
