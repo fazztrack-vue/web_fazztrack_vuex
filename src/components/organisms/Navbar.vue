@@ -1,5 +1,7 @@
 <template>
-  <section class="bg-white z-[100] sticky top-0 right-0 left-0 h-20 flex justify-center items-center shadow-1">
+  <section
+    class="bg-white z-[100] sticky top-0 right-0 left-0 h-20 flex justify-center items-center shadow-1 overflow-hidden">
+
     <!-- <div class="fixed z-60 inset-0 bg-[#494c51] opacity-50"></div> -->
     <nav :class="widhtContain === 'profile' ? 'container-profile container bg-white flex items-center' : 'container-class bg-white flex items-center'">
           <a href="/" class="w-[20%]">
