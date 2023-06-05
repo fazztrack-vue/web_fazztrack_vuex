@@ -5,13 +5,13 @@ interface IStateMinicamp {
     isLoading : boolean
     data: IDataMinicamp[]
     isError: boolean
-    isMessage: string
+    errMessage: string
   },
   detail:{
     isLoading : boolean
     data: IDataMinicamp | null
     isError: boolean
-    isMessage: string
+    errMessage: string
   }
 }
 

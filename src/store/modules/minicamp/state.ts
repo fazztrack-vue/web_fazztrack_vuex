@@ -6,13 +6,13 @@ const state = () : IStateMinicamp => ({
     isLoading : false,
     data: [] as IDataMinicamp[],
     isError: false,
-    isMessage: ''
+    errMessage: ''
   },
   detail:{
     isLoading : false,
     data: null,
     isError: false,
-    isMessage: ''
+    errMessage: ''
   }
 })
 
