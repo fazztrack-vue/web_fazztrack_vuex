@@ -16,8 +16,11 @@
     class="fixed z-[60] inset-0 bg-[#494c51] opacity-90 flex justify-center items-center">
     <Loading />
   </div>
+  <div v-else-if="listVidio.isError" class='text-2xl font-semibold w-full flex justify-center h-20 items-center'>
+    {{listVidio.errMessage}}
+  </div>
   <div
-    v-if="listVidio.isLoading == false"
+    v-else
     class="flex flex-col items-center w-full">
     <section class="w-full flex flex-col items-center container-class mt-10">
       <div class="w-full bg-[#f1f2f3] p-6 rounded-md relative">
@@ -235,7 +238,6 @@ export default defineComponent({
     showModal(param:number) {
       this.id = param
       this.modalDeleteStatus = !this.modalDeleteStatus;
-      console.log("testt");
       
     },
     handleDelete(id: number) {
