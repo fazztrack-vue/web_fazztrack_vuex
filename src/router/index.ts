@@ -47,6 +47,7 @@ const routes : Array<RouteRecordRaw> = [
     component: Portofolio, 
     name: 'profile-portofolio'
   },
+  {
     path: '/hire',
     component: HireOurGraduate,
     name: 'hire'
