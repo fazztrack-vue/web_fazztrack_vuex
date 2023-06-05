@@ -11,7 +11,7 @@
       <a href="/" class="w-[20%]">
         <Logo />
       </a>
-      <main class="hidden md:flex flex-1 justify-between items-center">
+      <main class="hidden lg:flex flex-1 justify-between items-center">
         <section class="flex justify-between items-center font-bold gap-5">
           <div
             @click="showNav1"
@@ -260,7 +260,7 @@
           </section>
         </section>
       </main>
-      <div class="md:hidden ml-auto">
+      <div class="lg:hidden ml-auto">
         <v-icon name="fa-align-justify" scale="2"/>
       </div>
     </nav>
