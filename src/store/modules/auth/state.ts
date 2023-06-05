@@ -1,14 +1,7 @@
-import { IVidioState } from "./interface"
-import { IVidio } from "../../../interfaces/IVidio"
+import { IAuthState } from './interface';
 
 
-const state = (): IVidioState => ({
-    list: {
-        isLoading: false,
-        data: [] as IVidio[],
-        isError: false,
-        errMessage: ""
-    },
+const state = (): IAuthState => ({
     detail: {
         isLoading: false,
         data: null,
