@@ -1,8 +1,8 @@
 <template lang="">
-  <section class="w-full flex justify-center bg-[#fff3e4] py-14">
+  <section class="w-full flex justify-center bg-[#fff3e4] py-14 px-5">
     <section class="container-class">
       <div class="flex flex-col items-center">
-        <TitleHire :title="titleSection" />
+        <TitleHire class='text-center' styleText="" :title="titleSection" />
         <div class="mt-5">
             <BtnPrimary :title="btnTitle" />
         </div>

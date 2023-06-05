@@ -1,5 +1,5 @@
 <template lang="">
-  <section class="w-1/3 rounded-lg shadow-lg bg-white">
+  <section class="md:w-1/3 w-full rounded-lg shadow-lg bg-white">
     <div class="bg-[#2557a7] p-6 text-white font-semibold text-xl rounded-t-lg">
       <li>{{title}}</li>
     </div>

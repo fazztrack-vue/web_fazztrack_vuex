@@ -11,14 +11,14 @@
         desc="Bring more kickass talent to Indonesia’s tech ecosystem."
         imgContent="https://www.fazztrack.com/_nuxt/img/about-page-hero.3a699a8.png"
         btnTitle="Daftar sekarang" />
-      <section class="w-full px-5 flex items-center mb-16">
-        <div class="w-[40%] ml-7 flex flex-col justify-center">
+      <section class="w-full px-5 flex flex-col md:flex-row items-center mb-16">
+        <div class="md:w-[40%] md:ml-7 flex flex-col justify-start">
           <TitleHire title="The New Career Hacks" />
-          <p class="text-xl text-[#797e86]">
+          <p class="text-base md:text-xl text-[#797e86]">
             Di Fazztrack kami percaya ada cara yang lebih baik untuk sukses:
           </p>
         </div>
-        <div class="w-[60%]">
+        <div class="md:w-[60%]">
           <div class="flex items-start mt-5">
             <i
               class="fa-solid fa-check text-primary-orange fa-lg mt-3 mr-5"></i>
@@ -52,33 +52,35 @@
         <div class="mb-8">
           <TitleHire title="Hubungi Fazztrack" />
         </div>
-        <div class="w-[80%] flex justify-center items-center">
-          <div class="mr-10">
-            <div class="mapouter">
-              <div class="gmap_canvas">
-                <iframe
-                  class="gmap_iframe"
-                  frameborder="0"
-                  scrolling="no"
-                  marginheight="0"
-                  marginwidth="0"
-                  src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=fazztrack&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-                </iframe>
-                <a href="https://capcuttemplate.org/">Capcut Template</a>
-              </div>
-            </div>
+        <div
+          class="md:w-[80%] w-full flex flex-col md:flex-row justify-center items-center">
+          <div class="md:mr-10 w-full flex justify-center md:justify-end">
+            <iframe
+              class="w-full h-[254px] md:w-[254px] md:right-5"
+              frameborder="0"
+              scrolling="no"
+              marginheight="0"
+              marginwidth="0"
+              src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=fazztrack&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+            </iframe>
           </div>
-          <div class="flex flex-col justify-between h-full">
-            <h2 class="text-xl font-semibold text-primary-orange">Fazztrack Head Office</h2>
-            <p class="text-[#494c51] text-xl mb-4">
+          <div class="flex flex-col justify-between h-full mt-10 md:m-0">
+            <h2 class="text-base md:text-xl font-semibold text-primary-orange">
+              Fazztrack Head Office
+            </h2>
+            <p class="text-[#494c51] text-base md:text-xll mb-4">
               CIBIS Park, Jl. TB Simatupang No.2, RT.13/RW.5, Cilandak Tim.,
               Kec. Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota
               Jakarta 12560
             </p>
-            <p class="text-[#494c51] text-xl mb-4">Senin - Jumat (08.00 - 18.00)</p>
+            <p class="text-[#494c51] text-base md:text-xl mb-4">
+              Senin - Jumat (08.00 - 18.00)
+            </p>
             <div>
-              <h2 class="text-xl font-semibold text-primary-orange">Kontak Kami</h2>
-              <p class="text-[#494c51] text-xl">+6282261564148</p>
+              <h2 class="text-base md:text-xl font-semibold text-primary-orange">
+                Kontak Kami
+              </h2>
+              <p class="text-[#494c51] text-base md:text-xl">+6282261564148</p>
             </div>
           </div>
         </div>
@@ -163,24 +165,4 @@ export default defineComponent({
   mounted() {},
 });
 </script>
-<style>
-.title {
-  font-family: "Sora", sans-serif;
-}
-.mapouter {
-  position: relative;
-  text-align: right;
-  width: 254px;
-  height: 254px;
-}
-.gmap_canvas {
-  overflow: hidden;
-  background: none !important;
-  width: 254px;
-  height: 254px;
-}
-.gmap_iframe {
-  width: 254px !important;
-  height: 254px !important;
-}
-</style>
+<style></style>
