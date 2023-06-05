@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <li class="text-primary-orange text-2xl"></li>
-    <p class="text-[#494c51] text-xl mb-4">
+    <p class="text-[#494c51] text-base md:text-xl mb-4">
       {{ desc }}
     </p>
   </div>
