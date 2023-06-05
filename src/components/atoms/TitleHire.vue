@@ -1,7 +1,5 @@
 <template lang="">
-    <div>
-        <p class="title font-semibold text-[24px]">{{title}}</p>
-    </div>
+        <p class="title font-semibold text-xl md:text-[24px]">{{title}}</p>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
