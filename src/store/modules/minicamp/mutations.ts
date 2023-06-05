@@ -12,7 +12,7 @@ export default {
   GET_MINICAMPS_REJECTED(state: IStateMinicamp, payload : string){
     state.list.isLoading = false
     state.list.isError = true
-    state.list.isMessage = payload
+    state.list.errMessage = payload
   },
   GET_DETAIL_MINICAMP_PENDING(state: IStateMinicamp){
     state.detail.isLoading = true
@@ -24,6 +24,6 @@ export default {
   GET_DETAIL_MINICAMP_REJECTED(state: IStateMinicamp, payload : string){
     state.detail.isLoading = false
     state.detail.isError = true
-    state.detail.isMessage = payload
+    state.detail.errMessage = payload
   },
 }
