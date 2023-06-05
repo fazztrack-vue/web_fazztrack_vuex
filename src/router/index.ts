@@ -5,6 +5,8 @@ import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import OnlineCourse from '../pages/OnlineCourse.vue'
 import AddVidio from '../pages/AddVidio.vue'
+import Profile from '../pages/Profile.vue'
+import Portofolio from '../pages/Portofolio.vue'
 
 const routes : Array<RouteRecordRaw> = [
   {
@@ -32,7 +34,16 @@ const routes : Array<RouteRecordRaw> = [
     component: AddVidio, 
     name: 'add-vidio'
   },
-
+  {
+    path: '/profile/about',
+    component: Profile, 
+    name: 'profile-about'
+  },
+  {
+    path: '/profile/portofolio',
+    component: Portofolio, 
+    name: 'profile-portofolio'
+  },
 ]
 
 const router = createRouter({

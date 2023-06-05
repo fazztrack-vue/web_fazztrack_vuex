@@ -26,7 +26,7 @@
   box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
 }
 
-.container-class {
+.container-class, .container-profile {
   width: 100%;
 }
 
@@ -40,20 +40,28 @@
   .container-class {
     width: 610px;
   }
+  .container, .container-profile {
+    width: 540px;
+}
 }
 
 @media only screen and (min-width: 768px){
   .container-class {
     width: 730px;
   }
+  .container, .container-profile {
+    width: 720px;
+}
 }
 
 @media only screen and (min-width: 1024px) {
   .container-class {
     width: 990px;
   }
+  .container, .container-profile {
+    width: 1440px;
 }
-
+}
 
 @media only screen and (min-width: 1280px) {
   .container-class {
@@ -61,13 +69,12 @@
   }
 }
 
-
-
 @media only screen and (min-width: 1536px) {
   .container-class {
     width: 1140px;
   }
 }
+
 @media only screen and (min-width: 1536px) {
   .container-background {
     width: 1140px;

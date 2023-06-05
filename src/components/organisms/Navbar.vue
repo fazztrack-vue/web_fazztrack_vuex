@@ -1,8 +1,8 @@
 <template>
   <section class="bg-white z-[100] sticky top-0 right-0 left-0 h-20 flex justify-center items-center shadow-1">
     <!-- <div class="fixed z-60 inset-0 bg-[#494c51] opacity-50"></div> -->
-    <nav class="container-class bg-white flex items-center">
-          <a href="/" class="w-56">
+    <nav :class="widhtContain === 'profile' ? 'container-profile container bg-white flex items-center' : 'container-class bg-white flex items-center'">
+          <a href="/" class="w-[20%]">
             <Logo />
           </a>
           <main class="flex flex-1 justify-between items-center">
@@ -116,7 +116,7 @@
                       </section>  
                     </section>
                     <div class="h-[0.4px] bg-neutral-300 my-[14px]"></div>
-                    <p class="font-bold mb-[14px] cursor-pointer">Profile</p>
+                    <p @click="moveRoute('/profile/about')" class="font-bold mb-[14px] cursor-pointer">Profile</p>
                     <p @click="handleLogout" class="font-bold cursor-pointer">Logout</p>
                   </section>
                 </nav>
@@ -161,6 +161,13 @@
         Logo,
         ArrowDown,
         ArrowUp
+    },
+    props:{
+      widhtContain :{
+        type: String,
+        required: false,
+        default: 'normal'
+      }
     },
     data() : Data{
         return {
@@ -230,13 +237,9 @@
           this.$router.push(path)
         },
         async getDataUser(token : string){
-          try{
             await this.fetchDataProfile(token)
             this.dataUser = this.dataProfile.data
-            this.nameUser = this.dataUser.email.split('@')[0]
-          }catch(err){
-            alert(this.dataProfile.isMessage)
-          }
+            this.nameUser = this.dataUser.email.split('@')[0] 
         }
       },
     mounted(){
