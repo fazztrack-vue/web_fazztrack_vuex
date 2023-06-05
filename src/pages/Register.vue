@@ -74,7 +74,7 @@
     import BtnGoogle from '../components/atoms/BtnGoogle.vue';
     import Swal from 'sweetalert2'
     import LogoFazz from '../components/atoms/LogoFazz.vue';
-    import {mapActions, mapGetters} from 'vuex'
+    import {mapActions} from 'vuex'
 
     interface Data {
         passwordConfirm : string
