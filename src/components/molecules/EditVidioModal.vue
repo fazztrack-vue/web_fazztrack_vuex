@@ -12,6 +12,10 @@
         <div v-if="detailVidio.isLoading">
           <Loading />
         </div>
+        <div v-else-if="detailVidio.isError" class="text-2xl font-semibold flex items-center">
+          {{detailVidio.errMessage}}
+          <button @click="closeModal" class="btn btn-error btn-circle ml-5"><i class="fa-solid fa-xmark fa-2xl"></i></button>
+        </div>
         <div
           v-else
           class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
@@ -172,14 +176,18 @@ export default defineComponent({
     handleGetById() {
       this.fetchDetail(this.idVidio).then((res: any) => {
         this.vidio = res.data;
-      });
+        console.log("eror in edit",res.data);
+      })
+      
+    },
+    closeModal(){
+      this.$emit("on-click", "");
     },
     handleEdit() {
-      this.editVidio({ id: this.id, body: this.vidio }).then((res:any) => {
-        console.log(res.data.data);
+      this.editVidio({ id: this.id, body: this.vidio }).then((_res:any) => {
         this.$emit("on-edit", "");
         this.$emit("on-click", "");
-      });
+      })
     },
   },
   mounted() {
