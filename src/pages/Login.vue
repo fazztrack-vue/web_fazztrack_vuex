@@ -28,7 +28,7 @@
                             @on-change="handleInput"/>
                         </div>
                     </div>
-                    <div class="w-full flex justify-between items-center">
+                    <div class="w-full flex justify-between items-center mb-2">
                         <div class="form-control">
                             <label class="label cursor-pointer">
                                 <input type="checkbox" checked="checked" class="checkbox-xs mr-5 w-3"/>
